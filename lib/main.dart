@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:xpenses/Models/Transation.dart';
 import 'package:intl/intl.dart';
+import 'package:xpenses/Models/Transation.dart';
 
 void main() {
   runApp(MyApp());
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                           Text(
-                            DateFormat('d MMM y').format(tr.date),
+                            DateFormat('d/MMM/yy').format(tr.date),
                             style: TextStyle(
                               color: Colors.grey[600],
                             ),
