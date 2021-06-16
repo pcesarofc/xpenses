@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xpenses/Models/Transation.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(MyApp());
@@ -59,22 +60,45 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Column(
               children: _transactions.map((tr) {
-                return Row(
-                  children: [
-                    FloatingActionButton(
-                      child: Text(tr.value.toString()),
-                      onPressed: null,
-                    ),
-                    Column(
-                      children: [
-                        Card(child: Text(tr.title)),
-                        Card(child: Text(tr.date.toString())),
-                      ],
-                    ),
-                  ],
+                return Card(
+                  elevation: 5,
+                  child: Row(
+                    children: [
+                      FloatingActionButton(
+                        backgroundColor: Colors.purple,
+                        child: Text(
+                          'R\$' + tr.value.toString(),
+                          style: TextStyle(fontSize: 10),
+                        ),
+                        onPressed: null,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tr.title,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            DateFormat('d MMM y').format(tr.date),
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 );
               }).toList(),
-            )
+            ),
           ],
         ),
       ),
