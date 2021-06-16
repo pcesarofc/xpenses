@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
       home: MyHomePage(),
     );
@@ -50,13 +50,15 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Card(
               elevation: 5,
-              child: Text('Gráfico'),
-              color: Colors.blue[100],
+              child: Text(
+                'Gráfico',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              color: Colors.purple[200],
             ),
             Column(
               children: _transactions.map((tr) {
@@ -65,10 +67,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Row(
                     children: [
                       FloatingActionButton(
-                        backgroundColor: Colors.purple,
+                        backgroundColor: Colors.green[200],
                         child: Text(
                           'R\$' + tr.value.toString(),
-                          style: TextStyle(fontSize: 10),
+                          style: TextStyle(fontSize: 10, color: Colors.black),
                         ),
                         onPressed: null,
                       ),
@@ -98,6 +100,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 );
               }).toList(),
+            ),
+            Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Titulo'),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Valor (R\$'),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                          onPressed: null,
+                          child: Text('Adicionar Transacao'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
