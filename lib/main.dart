@@ -27,6 +27,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final titleController = TextEditingController();
+  final valueController = TextEditingController();
+
   final _transactions = {
     Transaction(
       id: 't1',
@@ -67,10 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Row(
                     children: [
                       FloatingActionButton(
-                        backgroundColor: Colors.green[200],
+                        backgroundColor: Colors.purple[200],
                         child: Text(
                           'R\$' + tr.value.toString(),
-                          style: TextStyle(fontSize: 10, color: Colors.black),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              color: Colors.black),
                         ),
                         onPressed: null,
                       ),
@@ -108,16 +114,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: [
                     TextField(
+                      controller: titleController,
                       decoration: InputDecoration(labelText: 'Titulo'),
                     ),
                     TextField(
-                      decoration: InputDecoration(labelText: 'Valor (R\$'),
+                      controller: valueController,
+                      decoration: InputDecoration(labelText: 'Valor (R\$)'),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         ElevatedButton(
-                          onPressed: null,
+                          onPressed: () {
+                            print(titleController.text);
+                            print(valueController.text);
+                          },
                           child: Text('Adicionar Transacao'),
                         ),
                       ],
