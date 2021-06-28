@@ -32,20 +32,22 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Desesas pessoais'),
       ),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Card(
-              elevation: 5,
-              child: Text(
-                'Gráfico',
-                style: TextStyle(fontSize: 20, color: Colors.white),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Card(
+                elevation: 5,
+                child: Text(
+                  'Gráfico',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+                color: Colors.purple[200],
               ),
-              color: Colors.purple[200],
-            ),
-            TransactionUser(),
-          ],
+              TransactionUser(),
+            ],
+          ),
         ),
       ),
     );
