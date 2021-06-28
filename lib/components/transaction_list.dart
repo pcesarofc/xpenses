@@ -9,49 +9,54 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: transactions.map((tr) {
-        return Card(
-          elevation: 5,
-          child: Row(
-            children: [
-              FloatingActionButton(
-                backgroundColor: Colors.purple[200],
-                child: Text(
-                  'R\$' + tr.value.toString(),
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10,
-                      color: Colors.black),
+    return Container(
+      height: 300,
+      child: ListView.builder(
+        itemCount: transactions.length,
+        itemBuilder: (ctx, index) {
+          final tr = transactions[index];
+          return Card(
+            elevation: 5,
+            child: Row(
+              children: [
+                FloatingActionButton(
+                  backgroundColor: Colors.purple[200],
+                  child: Text(
+                    'R\$' + tr.value.toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                        color: Colors.black),
+                  ),
+                  onPressed: null,
                 ),
-                onPressed: null,
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr.title,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                Padding(
+                  padding: EdgeInsets.all(10),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr.title,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
-                  ),
-                  Text(
-                    DateFormat('d/MMM/yy').format(tr.date),
-                    style: TextStyle(
-                      color: Colors.grey[600],
+                    Text(
+                      DateFormat('d/MMM/yy').format(tr.date),
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      }).toList(),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
