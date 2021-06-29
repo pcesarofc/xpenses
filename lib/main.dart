@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:xpenses/components/transaction_user.dart';
+import 'package:xpenses/components/transaction_form.dart';
+import 'package:xpenses/Models/transaction.dart';
+import 'dart:math';
+import 'package:xpenses/components/transaction_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,35 +22,79 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _transactions = [
+    Transaction(
+      id: 't1',
+      title: 'Novo Tênis de Corrida',
+      value: 310.76,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Conta de Luz',
+      value: 211.30,
+      date: DateTime.now(),
+    ),
+  ];
+
+  _addTransaction(String title, double value) {
+    final newTransaction = Transaction(
+      id: Random().nextDouble().toString(),
+      title: title,
+      value: value,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _transactions.add(newTransaction);
+    });
+  }
+
+  _openTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return TransactionForm(_addTransaction);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Desesas pessoais'),
+        title: Text('Depesas Pessoais'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _openTransactionFormModal(context),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Card(
-              elevation: 5,
-              child: Text(
-                'Gráfico',
-                style: TextStyle(fontSize: 20, color: Colors.white),
+          children: <Widget>[
+            Container(
+              child: Card(
+                color: Colors.purple,
+                child: Text('Gráfico'),
+                elevation: 5,
               ),
-              color: Colors.purple[200],
             ),
-            TransactionUser(),
+            TransactionList(_transactions),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _openTransactionFormModal(context),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
