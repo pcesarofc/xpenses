@@ -11,52 +11,69 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 300,
-      child: ListView.builder(
-        itemCount: transactions.length,
-        itemBuilder: (ctx, index) {
-          final tr = transactions[index];
-          return Card(
-            elevation: 5,
-            child: Row(
+      child: transactions.isEmpty
+          ? Column(
               children: [
-                FloatingActionButton(
-                  backgroundColor: Colors.purple[200],
-                  child: Text(
-                    'R\$' + tr.value.toString(),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                        color: Colors.black),
+                Text(
+                  'Nenhuma transação cadastrada!',
+                  style: TextStyle(
+                    fontSize: 20,
                   ),
-                  onPressed: null,
                 ),
-                Padding(
-                  padding: EdgeInsets.all(10),
+                SizedBox(
+                  height: 20,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr.title,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                    Text(
-                      DateFormat('d/MMM/yy').format(tr.date),
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ],
+                Container(
+                  child: Image.asset('assets/images/vazio.png'),
+                  height: 200,
                 ),
               ],
+            )
+          : ListView.builder(
+              itemCount: transactions.length,
+              itemBuilder: (ctx, index) {
+                final tr = transactions[index];
+                return Card(
+                  elevation: 5,
+                  child: Row(
+                    children: [
+                      FloatingActionButton(
+                        child: Text(
+                          'R\$' + tr.value.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              color: Colors.black),
+                        ),
+                        onPressed: null,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tr.title,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            DateFormat('d/MMM/yy').format(tr.date),
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }
