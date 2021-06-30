@@ -4,8 +4,9 @@ import 'package:xpenses/Models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final void Function(String) onRemove;
 
-  TransactionList(this.transactions);
+  TransactionList(this.transactions, this.onRemove);
 
   @override
   Widget build(BuildContext context) {
@@ -34,42 +35,31 @@ class TransactionList extends StatelessWidget {
               itemBuilder: (ctx, index) {
                 final tr = transactions[index];
                 return Card(
-                  elevation: 5,
-                  child: Row(
-                    children: [
-                      FloatingActionButton(
-                        child: Text(
-                          'R\$' + tr.value.toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              color: Colors.black),
-                        ),
-                        onPressed: null,
+                  elevation: 2,
+                  margin: EdgeInsets.symmetric(
+                    vertical: 6,
+                    horizontal: 5,
+                  ),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: FittedBox(child: Text('R\$${tr.value}')),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
+                    ),
+                    title: Text(
+                      tr.title,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(DateFormat('d MMM y').format(tr.date)),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Theme.of(context).errorColor,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr.title,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          Text(
-                            DateFormat('d/MMM/yy').format(tr.date),
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                      onPressed: () => onRemove(tr.id),
+                    ),
                   ),
                 );
               },
