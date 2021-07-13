@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value, DateTime date) {
+  _addTransaction(String title, double value, DateTime date) { //adiciona uma nova transação
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
@@ -50,10 +50,10 @@ class _MyHomePageState extends State<MyHomePage> {
       _transactions.add(newTransaction);
     });
 
-    Navigator.of(context).pop();
+    Navigator.of(context).pop(); //fecha a aba de inserir os dados
   }
 
-  _removeTransaction(String id) {
+  _removeTransaction(String id) { // remove a transação usando o ID como parametro
     setState(() {
       _transactions.removeWhere((tr) => tr.id == id);
     });
@@ -69,11 +69,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+   
+    // Seta a variável islandscape como a tela virada
     bool islandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
+    //
+
     final appBar = AppBar(
       title: Text('Depesas Pessoais'),
       actions: <Widget>[
+        
+        //Condicional para  mostrar ou não o botão de mostrar o Chart ou TransactionList
         if (islandscape)
           IconButton(
             icon: Icon(_showChart ? Icons.list : Icons.show_chart),
@@ -87,32 +93,24 @@ class _MyHomePageState extends State<MyHomePage> {
           icon: Icon(Icons.add),
           onPressed: () => _openTransactionFormModal(context),
         ),
+
+        //
       ],
     );
+
+    //Seta o tamanho da altura em 100% excluindo a appbar e a barra de notificações
     final availableHeight = MediaQuery.of(context).size.height -
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
+    //
+
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // if (islandscape)
-            //   Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Text('Exibir Gráfico'),
-            //       Switch(
-            //         value: _showChart,
-            //         onChanged: (value) {
-            //           setState(() {
-            //             _showChart = value;
-            //           });
-            //         },
-            //       ),
-            //     ],
-            //   ),
+            
             if (_showChart || !islandscape)
               Container(
                 child: Chart(_recentTransactions),
